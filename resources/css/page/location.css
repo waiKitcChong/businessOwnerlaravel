@@ -1,0 +1,228 @@
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f9fc;
+    color: #1a1a1a;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+  }
+ 
+  main {
+    margin-top: 24px;
+  }
+  main h2 {
+    font-weight: 700;
+    font-size: 18px;
+    margin: 0 0 4px 0;
+    color: #1a1a1a;
+  }
+  main p.subtitle {
+    font-size: 12px;
+    color: #7a7a7a;
+    margin: 0 0 20px 0;
+  }
+  .btn-add-location {
+    background-color: #3ba4e6;
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    float: right;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn-add-location i {
+    font-size: 14px;
+  }
+  .locations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 20px;
+    clear: both;
+  }
+  .location-card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px 20px 24px;
+    box-shadow: 0 0 8px rgb(0 0 0 / 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .location-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .location-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #1a1a1a;
+    margin: 0;
+    flex: 1 1 auto;
+  }
+  .status-badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 12px;
+    color: white;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .status-active {
+    background-color: #00b74a;
+  }
+  .status-maintenance {
+    background-color: #f59e0b;
+  }
+  .location-subtitle {
+    font-size: 11px;
+    color: #7a7a7a;
+    margin: 4px 0 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .location-subtitle i {
+    font-size: 12px;
+    color: #7a7a7a;
+  }
+  .rating {
+    font-size: 12px;
+    color: #7a7a7a;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .rating i {
+    color: #fbbf24;
+    font-size: 14px;
+  }
+  .rating strong {
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+  .location-description {
+    font-size: 12px;
+    color: #7a7a7a;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+  .location-info {
+    font-size: 12px;
+    color: #7a7a7a;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .location-info i {
+    font-size: 12px;
+    color: #7a7a7a;
+  }
+  .location-info strong {
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+  .location-info a {
+    font-size: 12px;
+    color: #3ba4e6;
+  }
+  .location-info a:hover {
+    text-decoration: underline;
+  }
+  .total-rooms {
+    font-size: 12px;
+    color: #1a1a1a;
+    margin: 12px 0 8px 0;
+  }
+  .amenities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 8px;
+    margin-bottom: 16px;
+  }
+  .amenity {
+    font-size: 11px;
+    color: #1a1a1a;
+    border: 1px solid #d9e2ec;
+    border-radius: 12px;
+    padding: 3px 10px;
+    white-space: nowrap;
+  }
+  .location-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .btn-status {
+    background-color: #f4f9fc;
+    border: 1px solid #d9e2ec;
+    border-radius: 8px;
+    font-size: 12px;
+    color: #1a1a1a;
+    padding: 6px 12px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .btn-edit {
+    background-color: #f4f9fc;
+    border: 1px solid #d9e2ec;
+    border-radius: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+    color: #7a7a7a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .btn-edit i {
+    font-size: 14px;
+  }
+  .btn-delete {
+    background-color: #ef4444;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .btn-delete i {
+    font-size: 14px;
+  }
+  @media (max-width: 600px) {
+    nav {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn-add-location {
+      float: none;
+      margin-bottom: 16px;
+      justify-content: center;
+      width: 100%;
+    }
+  }

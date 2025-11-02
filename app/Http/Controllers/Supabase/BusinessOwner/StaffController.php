@@ -28,7 +28,6 @@ class StaffController extends BaseSupabaseController
     }
 public function store(Request $request)
 {
-    // 1️⃣ 验证前端表单
     $validated = $request->validate([
         'staff_name'     => 'required|string|max:100',
         'email'          => 'required|email',
@@ -56,7 +55,7 @@ public function store(Request $request)
             'name'     => $validated['staff_name'],
             'email'    => $validated['email'],
             'role'     => 'staff',
-            'status'   => 'active',           // 默认值
+            'status'   => 'active',          
             'password' => bcrypt('defaultpassword'),
             'created_at' => now(),
             

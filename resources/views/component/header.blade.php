@@ -60,14 +60,7 @@
      $role = session('role');
   ?>
 </style>
-@php
-use App\Http\Controllers\OwnerController;
 
-$ownerController = new OwnerController();
-$owner = $ownerController->getOwnerDetails();
-@endphp
-
-@
 <div class="topheader">
   <header>
   <div class="header-left">
@@ -86,11 +79,9 @@ $owner = $ownerController->getOwnerDetails();
       </svg>
     </div>
     <div>
-      @if ($owner)
-    <div class="hotel-name">{{ $owner->business_name }}</div>
-@else
+  
     <div class="hotel-name">Unknown</div>
-@endif
+
       <div class="hotel-subtitle">Grand Palace Resort &amp; Spa</div>
     </div>
   </div>

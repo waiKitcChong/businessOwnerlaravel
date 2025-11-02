@@ -200,49 +200,76 @@
       <h2 id="modalTitle">Add New Staff Member</h2>
       <p id="modalDesc">Add a new team member to your hotel staff.</p>
     </div>
-    <form action="{{ url('business_owner/store') }}" method="POST">
-      @csrf
-      <div class="form-group">
-        <label for="fullName">Full Name</label>
-        <input id="fullName" name="staff_name" type="text" placeholder="Enter full name" required />
-      </div>
+  @if ($errors->any())
+  <div class="alert alert-danger">
+    <ul>
+      @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+      @endforeach
+    </ul>
+  </div>
+@endif
 
-      <div class="form-group">
-        <label for="contact_number">Contact Number</label>
-        <input id="contact_number" name="contact_number" type="text" placeholder="Enter phone number" required />
-      </div>
+@if (session('error'))
+  <div class="alert alert-danger">{{ session('error') }}</div>
+@endif
 
-      <div class="form-group">
-        <label for="IC">IC Number</label>
-        <input id="IC" name="IC" type="text" placeholder="Enter IC number" required />
-      </div>
+@if (session('success'))
+  <div class="alert alert-success">{{ session('success') }}</div>
+@endif
 
-      <div class="form-group">
-        <label for="country">Country</label>
-        <input id="country" name="country" type="text" placeholder="Enter country" required />
-      </div>
+<form action="{{ url('business_owner/staff/store') }}" method="POST">
+  @csrf
+  {{-- 隱藏 owner_id --}}
+  <input type="hidden" name="owner_id" value="{{ $ownerId }}">
 
-      <div class="form-group">
-        <label for="address">Address</label>
-        <textarea id="address" name="address" placeholder="Enter address" required></textarea>
-      </div>
+  <div class="form-group">
+    <label for="fullName">Full Name</label>
+    <input id="fullName" name="staff_name" type="text" value="{{ old('staff_name') }}" placeholder="Enter full name" required />
+  </div>
 
-      <div class="form-group">
-        <label for="department">Department</label>
-        <select id="department" name="department" required>
-          <option value="" disabled selected>Select department</option>
-          <option value="frontdesk">Front Desk</option>
-          <option value="housekeeping">Housekeeping</option>
-          <option value="maintenance">Maintenance</option>
-          <option value="management">Management</option>
-        </select>
-      </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" value="{{ old('email') }}" placeholder="Enter email" required />
+  </div>
 
-      <div class="modal-footer">
-        <button type="button" class="btn-cancel" id="cancelBtn">Cancel</button>
-        <button type="submit" class="btn-submit">Add Staff Member</button>
-      </div>
-    </form>
+  <div class="form-group">
+    <label for="contact_number">Contact Number</label>
+    <input id="contact_number" name="contact_number" type="text" value="{{ old('contact_number') }}" placeholder="01x-xxxxxxx" required />
+  </div>
+
+  <div class="form-group">
+    <label for="IC">IC Number</label>
+    <input id="IC" name="IC" type="text" value="{{ old('IC') }}" placeholder="12-digit IC" required />
+  </div>
+
+  <div class="form-group">
+    <label for="country">Country</label>
+    <input id="country" name="country" type="text" value="{{ old('country') }}" placeholder="Enter country" required />
+  </div>
+
+  <div class="form-group">
+    <label for="address">Address</label>
+    <textarea id="address" name="address" placeholder="Enter address" required>{{ old('address') }}</textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="department">Department</label>
+    <select id="department" name="department" required>
+      <option value="" disabled {{ old('department') ? '' : 'selected' }}>Select department</option>
+      <option value="frontdesk" {{ old('department') == 'frontdesk' ? 'selected' : '' }}>Front Desk</option>
+      <option value="housekeeping" {{ old('department') == 'housekeeping' ? 'selected' : '' }}>Housekeeping</option>
+      <option value="maintenance" {{ old('department') == 'maintenance' ? 'selected' : '' }}>Maintenance</option>
+      <option value="management" {{ old('department') == 'management' ? 'selected' : '' }}>Management</option>
+    </select>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" id="cancelBtn">Cancel</button>
+    <button type="submit" class="btn-submit">Add Staff Member</button>
+  </div>
+</form>
+
 
   </div>
 </div>

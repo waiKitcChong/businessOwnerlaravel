@@ -2,7 +2,21 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
-use App\Http\Controllers\StaffController;
+
+use App\Http\Controllers\Supabase\BusinessOwner\{
+    DashboardController as OwnerDashboard,
+    RoomController as OwnerRoom,
+    LocationController as OwnerLocation,
+    PromotionController as OwnerPromotion,
+    StaffController as OwnerStaff
+};
+
+use App\Http\Controllers\Supabase\Staff\{
+    DashboardController as StaffDashboard,
+    RoomController as StaffRoom,
+    LocationController as StaffLocation,
+    PromotionController as StaffPromotion
+};
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,9 +60,10 @@ Route::prefix('/business_owner')->group(function () {
         return view('business_owner.room');
     })->middleware('role:owner');
 
-    Route::get('/staff', [StaffController::class, 'staff'])->middleware('role:owner');
+    Route::get('/staff', [OwnerStaff::class, 'index'])->middleware('role:owner');
+    Route::post('/staff/store', [OwnerStaff::class, 'store'])->middleware('role:owner');
 
-    Route::post('/store', [StaffController::class, 'store'])->middleware('role:owner');
+        
 });
 
 

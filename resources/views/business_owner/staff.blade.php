@@ -79,18 +79,18 @@
           @foreach($staffs as $staff)
           <tr>
             <td>
-              <div class="staff-name">{{ $staff->staff_id }}</div>
+              <div class="staff-name">{{ $staff['staff_id'] }}</div>
             </td>
             <td>
-              <div class="staff-name">{{ $staff->user->name ?? 'N/A' }}</div>
-              <div class="staff-email">{{ $staff->user->email ?? 'N/A' }}</div>
+              <div class="staff-name">{{ $staff['User']['name'] ?? 'N/A' }}</div>
+              <div class="staff-email">{{ $staff['User']['email'] ?? 'N/A' }}</div>
             </td>
-            <td>{{$staff->country }}</td>
-            <td><span class="badge reception" aria-label="Reception department">{{ $staff->department }}</span></td>
-            <td>{{ $staff->contact_number }}</td>
+            <td>{{$staff['country'] }}</td>
+            <td><span class="badge reception" aria-label="Reception department">{{ $staff['department'] }}</span></td>
+            <td>{{ $staff['contact_number'] }}</td>
 
             @php
-            $status = strtolower($staff->user->status ?? 'inactive');
+            $status = strtolower($staff['user']['status'] ?? 'inactive');
             $isActive = $status === 'active';
             @endphp
 
@@ -108,12 +108,12 @@
             </td>
 
 
-            <td>{{ $staff->registration_date }}</td>
+            <td>{{ $staff['registration_date'] }}</td>
             <td>
               <button
                 class="btn-action"
                 type="button"
-                data-user-id="{{ $staff->user_id }}"
+                data-user-id="{{  $staff['User']['user_id'] }}"
                 data-status="{{ $isActive ? 'active' : 'inactive' }}"
                 aria-label="{{ ($isActive ? 'Deactivate' : 'Activate') . ' ' . ($staff->user->name ?? 'Unknown') }}">
                 {{ $isActive ? 'Deactivate' : 'Activate' }}

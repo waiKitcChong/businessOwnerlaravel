@@ -44,10 +44,8 @@ Route::get('auth/login', function () {
 
 Route::prefix('/business_owner')->group(function () {
 
-    Route::get('/dashboard', function () {
-        return view('business_owner.dashboard');
-    })->middleware('role:owner');
-
+    Route::get('/dashboards', [OwnerDashboard::class, 'getOwnerDetails'])->middleware('role:owner');
+     
     Route::get('/location', function () {
         return view('business_owner.location');
     })->middleware('role:owner');
@@ -63,9 +61,7 @@ Route::prefix('/business_owner')->group(function () {
     Route::get('/staff', [OwnerStaff::class, 'index'])->middleware('role:owner');
     Route::post('/staff/store', [OwnerStaff::class, 'store'])->middleware('role:owner');
 
-        
 });
-
 
 Route::prefix('/staff')->group(function () {
 
@@ -77,9 +73,8 @@ Route::prefix('/staff')->group(function () {
 
 });
 
-
 Route::get('/logout', function () {
-    session()->flush(); // Clear session
+    session()->flush(); 
     return redirect(url('auth/login'));
 });
 

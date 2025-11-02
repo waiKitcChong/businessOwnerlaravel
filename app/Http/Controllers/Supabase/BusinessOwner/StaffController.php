@@ -19,7 +19,6 @@ class StaffController extends BaseSupabaseController
         return $result;
     }
 
-
     public function index()
     {
         $ownerId = $this->getOwnerDetails()[0]['owner_id'];
@@ -95,8 +94,6 @@ public function store(Request $request)
         return redirect()->back()->with('error', ' Error: ' . $e->getMessage());
     }
 }
-
-
 
     public function update(Request $request, $staffId)
     {

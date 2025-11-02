@@ -65,7 +65,7 @@
       });
 
       if (data.role === "staff") window.location.href = "{{ url('staff/dashboard') }}";
-      else if (data.role === "owner") window.location.href = "{{ url('business_owner/dashboard') }}";
+      else if (data.role === "owner") window.location.href = "{{ url('business_owner/dashboards') }}";
       else window.location.href = "{{ url('tourist/home') }}";
     } else {
       alert(data.message);

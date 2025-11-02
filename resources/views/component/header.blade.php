@@ -79,10 +79,8 @@
       </svg>
     </div>
     <div>
-  
-    <div class="hotel-name">Unknown</div>
 
-      <div class="hotel-subtitle">Grand Palace Resort &amp; Spa</div>
+    <div class="hotel-name">{{ session('business_name') }}</div>
     </div>
   </div>
 
@@ -108,7 +106,7 @@
 
   <div id="scrollProgressBar"></div>
   <nav aria-label="Main navigation">
-   <a href="{{ url(($role == 'owner' ? 'business_owner' : 'staff') . '/dashboard') }}" 
+   <a href="{{ url(($role == 'owner' ? 'business_owner' : 'staff') . '/dashboards') }}" 
    class="active-ow" aria-current="false">
    <i class="fas fa-chart-line"></i> Overview</a>
 

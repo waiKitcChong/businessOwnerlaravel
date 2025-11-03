@@ -6,9 +6,12 @@
   <title>TripMate Hotel Manager - Staff Management</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   @vite('resources/css/navigation.css')
   @vite('resources/css/header.css')
   @vite('resources/css/page/staff.css')
+  @vite('resources/css/pagination.css')
   <style>
     nav a.active-st {
       background-color: white;
@@ -20,6 +23,8 @@
     nav a.active-st svg {
       stroke: #1e293b;
     }
+
+    
   </style>
 </head>
 
@@ -59,7 +64,7 @@
     </section>
     <section class="card" aria-labelledby="staff-members-title">
       <h2 id="staff-members-title">
-        Staff Members ({{ count($staffs) }})
+        Staff Members  <span id="staff-count">{{ count($staffs) }}</span> / {{ $total }}
       </h2>
       <p>Manage your hotel staff members and their information</p>
       <table role="table" aria-describedby="staff-members-desc">
@@ -75,7 +80,7 @@
             <th scope="col" colspan="2" style="text-align:right;">Actions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="TableBody">
 
           @foreach($staffs as $staff)
           <tr>
@@ -123,7 +128,7 @@
 
 
             <td>
-              <button data-id="{{ $staff['staff_id'] }}" id="stfModal_openBtn" class="btn-icon" type="button" aria-label="Edit Sarah Johnson">
+              <button data-id="{{ $staff['staff_id'] }}" class="btn-icon stfModal_openBtn" type="button">
                 <svg aria-hidden="true" focusable="false" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" width="16" height="16">
                   <path d="M12 20h9"></path>
                   <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path>
@@ -134,10 +139,32 @@
           @endforeach
         </tbody>
       </table>
+<div id="pagination" class="pagination" style="margin-top: 15px; text-align: center;">
+  @if ($page > 1)
+    <a href="#" class="page-link prev" data-page="{{ $page - 1 }}">« Previous</a>
+  @endif
+
+  @for ($i = 1; $i <= $totalPages; $i++)
+    <a href="#" 
+       class="page-link {{ $page == $i ? 'active' : '' }}" 
+       data-page="{{ $i }}">
+        {{ $i }}
+    </a>
+  @endfor
+
+  @if ($page < $totalPages)
+    <a href="#" class="page-link next" data-page="{{ $page + 1 }}">Next »</a>
+  @endif
+</div>
+</div>
+
     </section>
   </main>
   @vite('resources/js/staff.js')
-  
+
 </body>
+
+
+
 
 </html>

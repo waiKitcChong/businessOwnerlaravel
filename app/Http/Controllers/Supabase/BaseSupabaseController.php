@@ -14,9 +14,9 @@ class BaseSupabaseController extends Controller
         $this->supabase = $supabase;
     }
 
-    protected function getTableData($table, $filters = [], $select = '*')
+    protected function getTableData($table, $filters = [], $select = '*', $limit = null, $offset = null, $orderBy = null, $desc = false)
     {
-        return $this->supabase->get($table, $filters, $select);
+        return $this->supabase->get($table, $filters, $select, $limit, $offset, $orderBy, $desc);
     }
 
     protected function createRecord($table, $data)

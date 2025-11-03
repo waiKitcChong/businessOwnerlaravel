@@ -2,29 +2,19 @@
     <div class="stfModal_container">
         <h2 class="stfModal_title">Staff Details</h2>
         <form id="stfModal_form">
-            <div class="stfModal_group">
-                <label>Staff ID</label>
-                <input type="text" value="STF00123" readonly>
-            </div>
-            <div class="stfModal_group">
-                <label>Full Name</label>
-                <input type="text" value="Daniel Tan" class="stfModal_editable" readonly>
-            </div>
-            <div class="stfModal_group">
-                <label>Position</label>
-                <input type="text" value="IT Infrastructure Engineer" class="stfModal_editable" readonly>
-            </div>
+            
             <div class="stfModal_group">
                 <label>Department</label>
-                <input type="text" value="Technology Services" class="stfModal_editable" readonly>
+                <input type="text" name="department" class="stfModal_editable" readonly>
             </div>
-            <div class="stfModal_group">
-                <label>Email</label>
-                <input type="email" value="daniel.tan@example.com" class="stfModal_editable" readonly>
-            </div>
+          
             <div class="stfModal_group">
                 <label>Phone</label>
-                <input type="tel" value="+60 12-345 6789" class="stfModal_editable" readonly>
+                <input type="tel" name="phone" class="stfModal_editable" readonly>
+            </div>
+            <div class="stfModal_group">
+                <label>Address</label>
+                <input type="text" name="address" class="stfModal_editable" readonly>
             </div>
             <div class="stfModal_btnWrapper">
                 <button type="button" class="stfModal_btn stfModal_edit">Edit</button>
@@ -32,6 +22,7 @@
                 <button type="button" class="stfModal_btn stfModal_close">Close</button>
             </div>
         </form>
+
     </div>
 </div>
 
@@ -50,29 +41,73 @@
         pointer-events: none;
         transition: opacity 0.3s ease;
     }
+
     .stfModal_overlay.stfModal_active {
         opacity: 1;
         pointer-events: all;
     }
 
-    .stfModal_container { 
-        background: #fff; 
-        padding: 30px; 
-        border-radius: 10px; 
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-        width: 100%; 
-        max-width: 450px; 
+    .stfModal_container {
+        background: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 450px;
     }
 
-    .stfModal_title { text-align: center; margin-bottom: 25px; }
-    .stfModal_group { margin-bottom: 15px; }
-    .stfModal_group label { display: block; margin-bottom: 5px; font-weight: bold; }
-    .stfModal_group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
-    .stfModal_group input[readonly] { background: #e9ecef; cursor: default; }
+    .stfModal_title {
+        text-align: center;
+        margin-bottom: 25px;
+    }
 
-    .stfModal_btnWrapper { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
-    .stfModal_btn { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; color: #fff; }
-    .stfModal_edit { background: #007bff; }
-    .stfModal_save { background: #28a745; display: none; }
-    .stfModal_close { background: #dc3545; }
+    .stfModal_group {
+        margin-bottom: 15px;
+    }
+
+    .stfModal_group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .stfModal_group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .stfModal_group input[readonly] {
+        background: #e9ecef;
+        cursor: default;
+    }
+
+    .stfModal_btnWrapper {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .stfModal_btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        color: #fff;
+    }
+
+    .stfModal_edit {
+        background: #007bff;
+    }
+
+    .stfModal_save {
+        background: #28a745;
+        display: none;
+    }
+
+    .stfModal_close {
+        background: #dc3545;
+    }
 </style>

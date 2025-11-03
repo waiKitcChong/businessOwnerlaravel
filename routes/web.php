@@ -6,6 +6,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Supabase\BusinessOwner\{
     DashboardController as OwnerDashboard,
     RoomController as OwnerRoom,
+    ClosureController as ClosureController, 
     LocationController as OwnerLocation,
     PromotionController as OwnerPromotion,
     StaffController as OwnerStaff
@@ -58,8 +59,14 @@ Route::prefix('/business_owner')->group(function () {
         return view('business_owner.room');
     })->middleware('role:owner');
 
+    Route::get('/schedule', [ClosureController::class, 'index'])->middleware('role:owner');
+    Route::get('/closures', [ClosureController::class, 'getClosures'])->middleware('role:owner');
+
     Route::get('/staff', [OwnerStaff::class, 'index'])->middleware('role:owner');
     Route::post('/staff/store', [OwnerStaff::class, 'store'])->middleware('role:owner');
+    Route::get('/staff/{staffId}', [OwnerStaff::class, 'show'])->middleware('role:owner');
+    Route::post('/staff/update/{staffId}', [OwnerStaff::class, 'update'])->middleware('role:owner');
+
 
 });
 

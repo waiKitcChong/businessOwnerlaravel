@@ -19,7 +19,7 @@ class SupabaseService
         ];
     }
 
-    public function get($table, $filters = [], $select = '*')
+    public function get($table, $filters = [], $select = '*', $limit = null, $offset = null, $orderBy = null, $desc = false)
     {
         $url = $this->baseUrl . $table;
         $query = ['select' => $select];
@@ -28,8 +28,19 @@ class SupabaseService
             $query[$key] = $value;
         }
 
+        if ($limit !== null) {
+            $query['limit'] = $limit;
+        }
+        if ($offset !== null) {
+            $query['offset'] = $offset;
+        }
+
+        if ($orderBy) {
+            $query['order'] = $orderBy . ($desc ? '.desc' : '.asc');
+        }
+
         $response = Http::withHeaders(array_merge($this->headers, [
-            'Accept' => 'application/json'  // ✅ 強制 Supabase 回傳 JSON
+            'Accept' => 'application/json'
         ]))->get($url, $query);
 
         $body = $response->body();
@@ -53,16 +64,18 @@ class SupabaseService
     public function update($table, $filters, $data)
     {
         $url = $this->baseUrl . $table;
-        $query = [];
 
+        $query = [];
         foreach ($filters as $key => $value) {
             $query[$key] = 'eq.' . $value;
         }
 
-        $response = Http::withHeaders($this->headers)->patch($url, $data, $query);
+        $response = Http::withHeaders($this->headers)
+            ->withOptions(['query' => $query])
+            ->patch($url, $data);
+
         return $response->json();
     }
-
     public function delete($table, $filters)
     {
         $url = $this->baseUrl . $table;

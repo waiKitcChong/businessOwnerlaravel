@@ -51,7 +51,6 @@
   background-color: #f0f0f0;
 }
 
-/* 顯示下拉選單 */
 .dropdown:hover .dropdown-content {
   display: block;
 }
@@ -62,7 +61,7 @@
 </style>
 
 <div class="topheader">
-  <header>
+  <header class="header2">
   <div class="header-left">
     <div class="logo-container" aria-label="TripMate logo with building icon">
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
@@ -105,7 +104,7 @@
 </header>
 
   <div id="scrollProgressBar"></div>
-  <nav aria-label="Main navigation">
+  <nav class="nav3" aria-label="Main navigation">
    <a href="{{ url(($role == 'owner' ? 'business_owner' : 'staff') . '/dashboards') }}" 
    class="active-ow" aria-current="false">
    <i class="fas fa-chart-line"></i> Overview</a>
@@ -119,6 +118,8 @@
     <a href="{{ url(($role == 'owner' ? 'business_owner' : 'staff') . '/room') }}" class="active-ro" aria-current="false"><i class="fas fa-bed"></i> Rooms</a>
     <?php
     ?>
+    <a href="{{ url(($role == 'owner' ? 'business_owner' : 'staff') . '/schedule') }}" class="active-sch" aria-current="page"><i class="fas fa-calendar-alt"></i> Schedule</a>
+
     <a href="{{ url(($role == 'owner' ? 'business_owner' : 'staff') . '/promotion') }}" class="active-pro" aria-current="page"><i class="fas fa-star"></i> Promotions</a>
   </nav>
 </div>

@@ -1,4 +1,4 @@
-  nav {
+  .nav3 {
  
     background-color: #f1f5f9;
     border-radius: 12px;
@@ -13,7 +13,7 @@
     color: #64748b;
     
   }
-  nav a {
+  .nav3 a {
     display: flex;
     align-items: center;
     gap: 6px;
@@ -22,7 +22,7 @@
     cursor: pointer;
     user-select: none;
   }
-  nav a svg {
+  .nav3 a svg {
     width: 14px;
     height: 14px;
     stroke: #64748b;

@@ -18,7 +18,7 @@ class IndexController extends Controller
 
         switch ($role) {
             case 'owner':
-                return redirect('business_owner/dashboard');
+                return redirect('business_owner/dashboards');
             case 'staff':
                 return redirect('staff/dashboard');
             default:

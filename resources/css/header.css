@@ -85,8 +85,7 @@
   }
 
   #scrollProgressBar {
-  
-  height: 7px;
+  height: 5px;
   background: linear-gradient(to right, #22d3ee, #3b82f6);
   width: 0%;
   z-index: 2000;

@@ -19,7 +19,7 @@ class RoomController extends BaseSupabaseController
 
     public function index(Request $request)
     {
-        
+
         $ownerId = $this->getOwnerDetails()[0]['owner_id'] ?? null;
         $hotel_owner = $this->getTableData('Business', ['owner_id' => 'eq.' . $ownerId]);
         $hotelID = $hotel_owner[0]['hotel_id'] ?? null;
@@ -38,18 +38,16 @@ class RoomController extends BaseSupabaseController
             true
         );
 
-        
-        $allRooms = $this->getTableData($this->table, ['owner_id' => 'eq.' . $ownerId]);
+
+        $allRooms = $this->getTableData($this->table, ['hotel_id' => 'eq.' . $hotelID]);
         $total = count($allRooms);
         $totalPages = ceil($total / $limit);
 
-         return view('business_owner.room', compact('rooms', 'ownerId', 'page', 'totalPages', 'total'));
-       
+        return view('business_owner.room', compact('rooms', 'ownerId', 'page', 'totalPages', 'total'));
     }
 
     public function show($roomId)
     {
-        //AJAX
         $room = $this->getTableData($this->table, ['RoomNo' => 'eq.' . $roomId], '*, RoomType(*)');
         if (empty($room)) {
             return response()->json(['error' => 'Room not found'], 404);
@@ -97,12 +95,12 @@ class RoomController extends BaseSupabaseController
             ];
             $this->supabase->insert('RoomType', $roomTypeData);
 
-            
+
             $roomID = $this->supabase->get('Room', [], 'RoomNo');
             $latestRoom = collect($roomID)->sortByDesc('RoomNo')->first();
             $newNums = $latestRoom ? str_pad(intval(substr($latestRoom['RoomNo'], 3)) + 1, 3, '0', STR_PAD_LEFT) : '001';
             $newRoomId = 'K' . $newNums;
-          
+
             $roomData = [
                 'RoomNo'       => $newRoomId,
                 'roomType_id'  => $newRoomTypeId,
@@ -123,20 +121,59 @@ class RoomController extends BaseSupabaseController
         }
     }
 
-
-
-
-    public function update(Request $request, $staffId)
+    public function edit($roomNo)
     {
-        $data = [
-            'contact_number' => $request->input('phone'),
-            'department' => $request->input('department'),
-            'address' => $request->input('address'),
-        ];
+        $room = $this->getTableData('Room', ['RoomNo' => 'eq.' . $roomNo], '*, RoomType(*)');
+        if (empty($room)) {
+            return redirect()->back()->with('error', 'Room not found.');
+        }
+        $room = $room[0];
+        $room['amenities'] = json_decode($room['amenities'], true) ?? [];
+        return view('form.update.update_room', compact('room'));
+    }
 
-        $this->updateRecord($this->table, ['staff_id' => $staffId], $data);
+    public function updateRoom(Request $request, $roomNo)
+    {
+        $validated = $request->validate([
+            'room-number' => 'required|string|max:50',
+            'room-type' => 'required|string|max:100',
+            'floor' => 'required|integer|min:0',
+            'capacity' => 'required|integer|min:1',
+            'size' => 'nullable|numeric|min:0',
+            'price' => 'required|numeric|min:0',
+            'bed-type' => 'required|string|max:100',
+            'amenities' => 'nullable|array',
+            'description' => 'nullable|string|max:1000',
+        ]);
 
-        return redirect()->back()->with('success', 'Staff updated successfully sohai.');
+        try {
+            $room = $this->getTableData('Room', ['RoomNo' => 'eq.' . $roomNo]);
+            if (empty($room)) {
+                throw new \Exception('Room not found.');
+            }
+
+            $roomTypeId = $room[0]['roomType_id'];
+
+            $this->updateRecord('RoomType', ['roomType_id' => $roomTypeId], [
+                'RoomPrice' => $validated['price'],
+                'type_name' => $validated['room-type'],
+                'bedType' => $validated['bed-type'],
+                'RoomDesc' => $validated['description'] ?? '',
+            ]);
+
+            // Update Room table
+            $this->updateRecord('Room', ['RoomNo' => $roomNo], [
+                'RoomNumber' => $validated['room-number'],
+                'floor' => $validated['floor'],
+                'capacity' => $validated['capacity'],
+                'size' => $validated['size'],
+                'amenities' => json_encode($validated['amenities'] ?? []),
+            ]);
+
+            return redirect('/business_owner/room')->with('success', 'Room updated successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
+        }
     }
 
 

@@ -61,6 +61,7 @@
 </style>
 
 <div class="topheader">
+  <div id="scrollProgressBar"></div>
   <header class="header2">
   <div class="header-left">
     <div class="logo-container" aria-label="TripMate logo with building icon">
@@ -103,7 +104,7 @@
   </div>
 </header>
 
-  <div id="scrollProgressBar"></div>
+
   <nav class="nav3" aria-label="Main navigation">
    <a href="{{ url(($role == 'owner' ? 'business_owner' : 'staff') . '/dashboards') }}" 
    class="active-ow" aria-current="false">
@@ -122,6 +123,7 @@
 
     <a href="{{ url(($role == 'owner' ? 'business_owner' : 'staff') . '/promotion') }}" class="active-pro" aria-current="page"><i class="fas fa-star"></i> Promotions</a>
   </nav>
+    
 </div>
 
 <script>

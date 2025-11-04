@@ -491,3 +491,12 @@
       justify-content: center;
     }
   }
+
+  .amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 5fr); 
+  gap: 6px 8px;
+  text-align: center;
+}
+
+

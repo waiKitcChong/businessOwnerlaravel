@@ -67,6 +67,8 @@ Route::prefix('/business_owner')->group(function () {
     Route::get('/staff/{staffId}', [OwnerStaff::class, 'show'])->middleware('role:owner');
     Route::post('/staff/update/{staffId}', [OwnerStaff::class, 'update'])->middleware('role:owner');
 
+    Route::get('/room', [OwnerRoom::class, 'index'])->middleware('role:owner');
+    Route::post('/room/store', [OwnerRoom::class, 'store'])->middleware('role:owner');
 
 });
 

@@ -220,7 +220,6 @@
 
 <form action="{{ url('business_owner/staff/store') }}" method="POST">
   @csrf
-  {{-- 隱藏 owner_id --}}
   <input type="hidden" name="owner_id" value="{{ $ownerId }}">
 
   <div class="form-group">

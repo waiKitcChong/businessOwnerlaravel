@@ -240,91 +240,89 @@
     <button class="modal-close" aria-label="Close modal">&times;</button>
     <h2 id="modal-title" class="modal-title">Add New Room</h2>
     <p class="modal-subtitle">Add a new room to your hotel inventory.</p>
-    <form>
-      <div class="form-row">
-        <div class="form-group" style="flex:1 1 33%;">
-          <label for="room-number">Room Number</label>
-          <input type="text" id="room-number" name="room-number" placeholder="e.g., 101" />
-        </div>
-        <div class="form-group" style="flex:1 1 33%;">
-          <label for="room-type">Room Type</label>
-          <select id="room-type" name="room-type" aria-label="Room Type">
-            <option>Standard</option>
-            <option>Deluxe</option>
-            <option>Suite</option>
-          </select>
-        </div>
-        <div class="form-group" style="flex:1 1 33%;">
-          <label for="location">Location</label>
-          <select id="location" name="location" aria-label="Location">
-            <option selected disabled>Select location</option>
-            <option>Main Campus</option>
-            <option>Downtown</option>
-            <option>Airport</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group" style="flex:1 1 20%;">
-          <label for="floor">Floor</label>
-          <input type="number" id="floor" name="floor" min="0" value="1" />
-        </div>
-        <div class="form-group" style="flex:1 1 20%;">
-          <label for="capacity">Capacity</label>
-          <input type="number" id="capacity" name="capacity" min="0" value="2" />
-        </div>
-        <div class="form-group" style="flex:1 1 20%;">
-          <label for="size">Size (m²)</label>
-          <input type="number" id="size" name="size" min="0" value="0" />
-        </div>
-        <div class="form-group" style="flex:1 1 30%;">
-          <label for="price">Price per Night</label>
-          <input type="number" id="price" name="price" min="0" value="0" />
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group wide">
-          <label for="bed-type">Bed Type</label>
-          <select id="bed-type" name="bed-type" aria-label="Bed Type">
-            <option>Queen</option>
-            <option>King</option>
-            <option>Twin</option>
-            <option>Double</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group wide">
-          <label>Amenities</label>
-          <div class="amenities-container" tabindex="0" aria-label="Amenities list with toggle switches">
-            <div class="amenities-list">
-              <label class="amenity-item"><span class="switch"><input type="checkbox" name="amenities" value="wifi" /><span class="slider"></span></span>WiFi</label>
-              <label class="amenity-item"><span class="switch"><input type="checkbox" name="amenities" value="tv" /><span class="slider"></span></span>TV</label>
-              <label class="amenity-item"><span class="switch"><input type="checkbox" name="amenities" value="air-conditioning" /><span class="slider"></span></span>Air Conditioning</label>
-              <label class="amenity-item"><span class="switch"><input type="checkbox" name="amenities" value="mini-bar" /><span class="slider"></span></span>Mini Bar</label>
-              <label class="amenity-item"><span class="switch"><input type="checkbox" name="amenities" value="ocean-view" /><span class="slider"></span></span>Ocean View</label>
-              <label class="amenity-item"><span class="switch"><input type="checkbox" name="amenities" value="balcony" /><span class="slider"></span></span>Balcony</label>
-              <label class="amenity-item"><span class="switch"><input type="checkbox" name="amenities" value="kitchenette" /><span class="slider"></span></span>Kitchenette</label>
-              <label class="amenity-item"><span class="switch"><input type="checkbox" name="amenities" value="living-area" /><span class="slider"></span></span>Living Area</label>
-              <label class="amenity-item"><span class="switch"><input type="checkbox" name="amenities" value="work-desk" /><span class="slider"></span></span>Work Desk</label>
-              <label class="amenity-item"><span class="switch"><input type="checkbox" name="amenities" value="safe" /><span class="slider"></span></span>Safe</label>
-              <label class="amenity-item"><span class="switch"><input type="checkbox" name="amenities" value="room-service" /><span class="slider"></span></span>Room Service</label>
-              <label class="amenity-item"><span class="switch"><input type="checkbox" name="amenities" value="jacuzzi" /><span class="slider"></span></span>Jacuzzi</label>
-            </div>
-          </div>
+<form id="addRoomForm" action="{{ url('/business_owner/room/store') }}" method="POST">
+  @csrf
+  <div class="form-row">
+    <div class="form-group" style="flex:1 1 33%;">
+      <label for="room-number">Room Number</label>
+      <input type="text" id="room-number" name="room-number" placeholder="e.g., 101" />
+    </div>
+    <div class="form-group" style="flex:1 1 33%;">
+      <label for="room-type">Room Type</label>
+      <select id="room-type" name="room-type" aria-label="Room Type">
+        <option>Standard</option>
+        <option>Deluxe</option>
+        <option>Suite</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group" style="flex:1 1 20%;">
+      <label for="floor">Floor</label>
+      <input type="number" id="floor" name="floor" min="0" value="1" />
+    </div>
+    <div class="form-group" style="flex:1 1 20%;">
+      <label for="capacity">Capacity</label>
+      <input type="number" id="capacity" name="capacity" min="0" value="2" />
+    </div>
+    <div class="form-group" style="flex:1 1 20%;">
+      <label for="size">Size (m²)</label>
+      <input type="number" id="size" name="size" min="0" value="0" />
+    </div>
+    <div class="form-group" style="flex:1 1 30%;">
+      <label for="price">Price per Night</label>
+      <input type="number" id="price" name="price" min="0" value="0" />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group wide">
+      <label for="bed-type">Bed Type</label>
+      <select id="bed-type" name="bed-type" aria-label="Bed Type">
+        <option>Queen</option>
+        <option>King</option>
+        <option>Twin</option>
+        <option>Double</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group wide">
+      <label>Amenities</label>
+      <div class="amenities-container" tabindex="0" aria-label="Amenities list with toggle switches">
+        <div class="amenities-list">
+          <label class="amenity-item"><span class="switch"><input type="checkbox" name="amenities[]" value="wifi" /><span class="slider"></span></span>WiFi</label>
+          <label class="amenity-item"><span class="switch"><input type="checkbox" name="amenities[]" value="tv" /><span class="slider"></span></span>TV</label>
+          <label class="amenity-item"><span class="switch"><input type="checkbox" name="amenities[]" value="air-conditioning" /><span class="slider"></span></span>Air Conditioning</label>
+          <label class="amenity-item"><span class="switch"><input type="checkbox" name="amenities[]" value="mini-bar" /><span class="slider"></span></span>Mini Bar</label>
+          <label class="amenity-item"><span class="switch"><input type="checkbox" name="amenities[]" value="ocean-view" /><span class="slider"></span></span>Ocean View</label>
+          <label class="amenity-item"><span class="switch"><input type="checkbox" name="amenities[]" value="balcony" /><span class="slider"></span></span>Balcony</label>
+          <label class="amenity-item"><span class="switch"><input type="checkbox" name="amenities[]" value="kitchenette" /><span class="slider"></span></span>Kitchenette</label>
+          <label class="amenity-item"><span class="switch"><input type="checkbox" name="amenities[]" value="living-area" /><span class="slider"></span></span>Living Area</label>
+          <label class="amenity-item"><span class="switch"><input type="checkbox" name="amenities[]" value="work-desk" /><span class="slider"></span></span>Work Desk</label>
+          <label class="amenity-item"><span class="switch"><input type="checkbox" name="amenities[]" value="safe" /><span class="slider"></span></span>Safe</label>
+          <label class="amenity-item"><span class="switch"><input type="checkbox" name="amenities[]" value="room-service" /><span class="slider"></span></span>Room Service</label>
+          <label class="amenity-item"><span class="switch"><input type="checkbox" name="amenities[]" value="jacuzzi" /><span class="slider"></span></span>Jacuzzi</label>
         </div>
       </div>
-      <div class="form-row">
-        <div class="form-group wide">
-          <label for="description">Description</label>
-          <textarea id="description" name="description" placeholder="Brief description of the room"></textarea>
-        </div>
-      </div>
-      <div class="buttons-row">
-        <button type="button" class="cancel">Cancel</button>
-        <button type="submit" class="add-room">Add Room</button>
-      </div>
-    </form>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group wide">
+      <label for="description">Description</label>
+      <textarea id="description" name="description" placeholder="Brief description of the room"></textarea>
+    </div>
+  </div>
+
+  <div class="buttons-row">
+    <button type="button" class="cancel">Cancel</button>
+    <button type="submit" class="add-room">Add Room</button>
+  </div>
+</form>
+
   </div>
 </div>
 

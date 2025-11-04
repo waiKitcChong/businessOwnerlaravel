@@ -112,7 +112,7 @@
 
     <a href="{{ url(($role == 'owner' ? 'business_owner' : 'staff') . '/staff') }}" class="active-st" aria-current="false"><i class="fas fa-user-friends"></i> Staff</a>
  
-    <a href="{{ url(($role == 'owner' ? 'business_owner' : 'staff') . '/location') }}" class="active-lo" aria-current="false"><i class="fas fa-map-marker-alt"></i> Locations</a>
+    <!-- <a href="{{ url(($role == 'owner' ? 'business_owner' : 'staff') . '/location') }}" class="active-lo" aria-current="false"><i class="fas fa-map-marker-alt"></i> Locations</a> -->
     <?php
     ?>
     <a href="{{ url(($role == 'owner' ? 'business_owner' : 'staff') . '/room') }}" class="active-ro" aria-current="false"><i class="fas fa-bed"></i> Rooms</a>

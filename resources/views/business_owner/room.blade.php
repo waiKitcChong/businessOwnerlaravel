@@ -59,11 +59,7 @@
           <option>Standard</option>
           <option>Deluxe</option>
         </select>
-        <select class="filter-select" aria-label="Filter by location" title="Filter by location">
-          <option selected>All Locations</option>
-          <option>Main Campus</option>
-          <option>Downtown</option>
-        </select>
+      
         <select class="filter-select" aria-label="Filter by status" title="Filter by status">
           <option selected>All Statuses</option>
           <option>Available</option>
@@ -142,7 +138,7 @@
             </td>
 
             <td class="actions" style="min-width: 160px;">
-              <button class="btn-disable" type="button" aria-label="Disable room #101">Disable</button>
+              <button class="btn-disable" type="button" aria-label="Disable room #101">Details</button>
               <a href="{{ route('owner.room.edit', ['roomNo' => $room['RoomNo']]) }}"
                 class="btn-icon"
                 aria-label="Edit room #{{ $room['RoomNo'] }}">

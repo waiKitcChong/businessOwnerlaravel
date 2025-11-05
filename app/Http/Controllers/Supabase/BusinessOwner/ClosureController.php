@@ -9,7 +9,19 @@ class ClosureController extends BaseSupabaseController
 {
     public function index()
     {
-        return view('business_owner.schedule');
+        $ownerId = $this->getOwnerDetails()[0]['owner_id'] ?? null;
+        $hotel_owner = $this->getTableData('Business', ['owner_id' => 'eq.' . $ownerId]);
+        $hotelID = $hotel_owner[0]['hotel_id'] ?? null;
+
+        $schedule = $this->getTableData(
+            'Room_Schedule',
+            ['Room.hotel_id' => 'eq.' . $hotelID],
+            '*,Room(*)'
+        );
+
+
+
+        return view('business_owner.schedule', compact('schedule'));
     }
 
     public function getOwnerDetails()
@@ -31,8 +43,8 @@ class ClosureController extends BaseSupabaseController
     }
 
     public function addClosure(Request $request)
-    { 
-        
+    {
+
         $request->validate([
             'room_no' => 'required',
             'start_date' => 'required|date',
@@ -40,7 +52,7 @@ class ClosureController extends BaseSupabaseController
             'reason' => 'nullable|string|max:255',
             'description' => 'nullable|string|max:500',
         ]);
-   
+
         $schedule = $this->supabase->get('Room_Schedule', [], 'schedule_id');
         $latest = collect($schedule)->sortByDesc('schedule_id')->first();
         $newNum = $latest
@@ -79,5 +91,15 @@ class ClosureController extends BaseSupabaseController
             }
         }
         return response()->json($closures);
+    }
+
+
+    public function destroy($id)
+    {
+        $deleted =$this->deleteRecord('Room_Schedule', ['schedule_id' =>  $id]);
+        if ($deleted) {
+            return response()->json(['success' => true, 'message' => 'Schedule deleted successfully']);
+        }
+        return response()->json(['success' => false, 'message' => 'Failed to delete schedule'], 500);
     }
 }

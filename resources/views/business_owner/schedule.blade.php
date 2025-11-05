@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <title>Room Availability Schedule</title>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   @vite('resources/css/navigation.css')
   @vite('resources/css/header.css')
   @vite('resources/css/page/schedule.css')
@@ -41,6 +42,9 @@
     }
   </style>
 </head>
+@php
+use Carbon\Carbon;
+@endphp
 
 <body>
   @include('component.header')
@@ -65,7 +69,7 @@
         <div style="margin-bottom: 1rem;">
           <label for="roomSelect">Select Room:</label>
           <select id="roomSelect">
-            <option value=""  disabled selected>--Please select room--</option>
+            <option value="" disabled selected>--Please select room--</option>
           </select>
         </div>
 
@@ -99,22 +103,34 @@
 
       <aside class="upcoming-closures">
         <h2>Upcoming Closures</h2>
-        <p class="subheader">2 scheduled</p>
-
-        <div class="closure-item">
-          <span class="closure-tag holiday">Holiday Closure</span>
-          <p class="closure-room">All Rooms</p>
-          <p class="closure-date">Dec 24 - Dec 26, 2025</p>
-          <p class="closure-desc">Christmas closure</p>
-          <button class="delete-btn" aria-label="Delete Holiday Closure">&#128465;</button>
+        <p class="subheader">{{ count($schedule)  }} scheduled</p>
+        <div class="closureSearchBox">
+          <input type="text" id="roomSearchField" placeholder="Search room number..." aria-label="Search closure by room">
         </div>
+        <div style="overflow-y: scroll;height: 400px;">
+        @foreach($schedule as $item)
+        @php
+        $start = Carbon::parse($item['start_date']);
+        $end = Carbon::parse($item['end_date']);
+
+        if ($start->year === $end->year && $start->month === $end->month) {
+        $formatted = $start->format('M j') . ' - ' . $end->format('j, Y');
+        } elseif ($start->year === $end->year) {
+        $formatted = $start->format('M j') . ' - ' . $end->format('M j, Y');
+        } else {
+        $formatted = $start->format('M j, Y') . ' - ' . $end->format('M j, Y');
+        }
+        @endphp
 
         <div class="closure-item">
-          <span class="closure-tag private">Private Event</span>
-          <p class="closure-room">Building A</p>
-          <p class="closure-date">Dec 31 - Jan 1, 2026</p>
-          <p class="closure-desc">New Year celebration booking</p>
-          <button class="delete-btn" aria-label="Delete Private Event">&#128465;</button>
+          <span class="closure-tag holiday">{{ $item['reason'] }}</span>
+          <p class="closure-room">{{ $item['Room']['RoomNumber'] }}</p>
+          <p class="closure-date">{{ $formatted }}</p>
+          <p class="closure-desc">{{ $item['description'] ?? 'No description' }}</p>
+          <button class="delete-btn" data-id="{{ $item['schedule_id'] }}" aria-label="Delete Holiday Closure">&#128465;</button>
+
+        </div>
+        @endforeach
         </div>
       </aside>
     </div>

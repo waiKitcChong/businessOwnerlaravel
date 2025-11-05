@@ -115,3 +115,57 @@ async function loadRoomsToSelect(selectId) {
 loadRoomsToSelect('roomSelect');
 loadRoomsToSelect('roomSelect2');
 
+ document.addEventListener("DOMContentLoaded", function() {
+    const searchField = document.getElementById("roomSearchField");
+    const closureItems = document.querySelectorAll(".closure-item");
+
+    searchField.addEventListener("input", function() {
+      const term = searchField.value.trim().toLowerCase();
+
+      closureItems.forEach(item => {
+        const roomText = item.querySelector(".closure-room")?.textContent.toLowerCase() || "";
+
+        if (roomText.includes(term)) {
+          item.style.display = "";
+        } else {
+          item.style.display = "none";
+        }
+      });
+    });
+  });
+
+
+  document.addEventListener("DOMContentLoaded", function() {
+  const buttons = document.querySelectorAll(".delete-btn");
+
+  buttons.forEach(btn => {
+    btn.addEventListener("click", function() {
+      const scheduleId = this.dataset.id;
+      const itemElement = this.closest(".closure-item");
+
+      if (!confirm("Are you sure you want to delete this schedule?")) return;
+
+      fetch(`/business_owner/schedule/delete/${scheduleId}`, {
+        method: "DELETE",
+        headers: {
+          "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+          "Accept": "application/json"
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          itemElement.style.transition = "opacity 0.4s ease";
+          itemElement.style.opacity = "0";
+          setTimeout(() => itemElement.remove(), 400);
+        } else {
+          alert("Failed to delete schedule: " + data.message);
+        }
+      })
+      .catch(err => {
+        console.error("AJAX delete error:", err);
+        alert("Something went wrong while deleting!");
+      });
+    });
+  });
+});

@@ -65,7 +65,8 @@ Route::prefix('/business_owner')->group(function () {
     Route::get('/rooms_id', [ClosureController::class, 'getRooms'])->middleware('role:owner');
     Route::get('/closures', [ClosureController::class, 'getClosures'])->middleware('role:owner');
     Route::post('/closures/add', [ClosureController::class, 'addClosure'])->middleware('role:owner')->name('closures.add');
-    Route::delete('/closures/{id}', [ClosureController::class, 'deleteClosure'])->middleware('role:owner')->name('closures.delete');
+    Route::delete('/schedule/delete/{id}', [ClosureController::class, 'destroy'])->middleware('role:owner')->name('schedule.delete');
+
 
     Route::get('/staff', [OwnerStaff::class, 'index'])->middleware('role:owner');
     Route::post('/staff/store', [OwnerStaff::class, 'store'])->middleware('role:owner');

@@ -85,7 +85,10 @@ class SupabaseService
             $query[$key] = 'eq.' . $value;
         }
 
-        $response = Http::withHeaders($this->headers)->delete($url, $query);
-        return $response->json();
+        $url .= '?' . http_build_query($query);
+
+        $response = Http::withHeaders($this->headers)->delete($url);
+
+        return $response->successful();
     }
 }

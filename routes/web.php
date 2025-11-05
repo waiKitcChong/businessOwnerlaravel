@@ -62,11 +62,16 @@ Route::prefix('/business_owner')->group(function () {
     })->middleware('role:owner');
 
     Route::get('/schedule', [ClosureController::class, 'index'])->middleware('role:owner');
+    Route::get('/rooms_id', [ClosureController::class, 'getRooms'])->middleware('role:owner');
     Route::get('/closures', [ClosureController::class, 'getClosures'])->middleware('role:owner');
+    Route::post('/closures/add', [ClosureController::class, 'addClosure'])->middleware('role:owner')->name('closures.add');
+    Route::delete('/closures/{id}', [ClosureController::class, 'deleteClosure'])->middleware('role:owner')->name('closures.delete');
+
     Route::get('/staff', [OwnerStaff::class, 'index'])->middleware('role:owner');
     Route::post('/staff/store', [OwnerStaff::class, 'store'])->middleware('role:owner');
     Route::get('/staff/{staffId}', [OwnerStaff::class, 'show'])->middleware('role:owner');
     Route::post('/staff/update/{staffId}', [OwnerStaff::class, 'update'])->middleware('role:owner');
+    
     Route::get('/room', [OwnerRoom::class, 'index'])->middleware('role:owner');
     Route::post('/room/store', [OwnerRoom::class, 'store'])->middleware('role:owner');
     Route::get('/room/{roomNo}/edit', [OwnerRoom::class, 'edit'])->middleware('role:owner')->name('owner.room.edit');;

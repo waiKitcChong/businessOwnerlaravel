@@ -72,11 +72,15 @@ Route::prefix('/business_owner')->group(function () {
     Route::post('/staff/store', [OwnerStaff::class, 'store'])->middleware('role:owner');
     Route::get('/staff/{staffId}', [OwnerStaff::class, 'show'])->middleware('role:owner');
     Route::post('/staff/update/{staffId}', [OwnerStaff::class, 'update'])->middleware('role:owner');
-    
+
     Route::get('/room', [OwnerRoom::class, 'index'])->middleware('role:owner');
     Route::post('/room/store', [OwnerRoom::class, 'store'])->middleware('role:owner');
     Route::get('/room/{roomNo}/edit', [OwnerRoom::class, 'edit'])->middleware('role:owner')->name('owner.room.edit');;
-    Route::post('/room/{roomNo}/update', [OwnerRoom::class, 'updateRoom'])->middleware('role:owner')->name('owner.room.update');;
+    Route::post('/room/{roomNo}/update', [OwnerRoom::class, 'updateRoom'])->middleware('role:owner')->name('owner.room.update');
+
+    Route::get('/promotions', [OwnerPromotion::class, 'index'])->middleware('role:owner');
+    Route::get('/promotions/generate', [OwnerPromotion::class, 'generateCode'])->middleware('role:owner');
+    Route::post('/promotions/store', [OwnerPromotion::class, 'store'])->middleware('role:owner');
 });
 
 Route::prefix('/staff')->group(function () {

@@ -121,7 +121,7 @@
     ?>
     <a href="{{ url(($role == 'owner' ? 'business_owner' : 'staff') . '/schedule') }}" class="active-sch" aria-current="page"><i class="fas fa-calendar-alt"></i> Schedule</a>
 
-    <a href="{{ url(($role == 'owner' ? 'business_owner' : 'staff') . '/promotion') }}" class="active-pro" aria-current="page"><i class="fas fa-star"></i> Promotions</a>
+    <a href="{{ url(($role == 'owner' ? 'business_owner' : 'staff') . '/promotions') }}" class="active-pro" aria-current="page"><i class="fas fa-star"></i> Promotions</a>
   </nav>
     
 </div>

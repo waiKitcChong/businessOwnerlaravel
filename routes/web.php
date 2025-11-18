@@ -90,6 +90,13 @@ Route::prefix('/staff')->group(function () {
     })->middleware('role:staff');
 });
 
+Route::prefix('/admin')->group(function () {
+
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    })->middleware('role:admin');
+});
+
 Route::get('/logout', function () {
     session()->flush();
     return redirect(url('auth/login'));

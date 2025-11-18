@@ -21,6 +21,8 @@ class IndexController extends Controller
                 return redirect('business_owner/dashboards');
             case 'staff':
                 return redirect('staff/dashboard');
+            case 'admin':
+                return redirect('admin/dashboard');
             default:
                 return redirect('logout');
         }
